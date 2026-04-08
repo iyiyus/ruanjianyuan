@@ -1,0 +1,35 @@
+# 依赖
+中后台/node_modules/
+go-source/vendor/
+
+# 构建产物
+中后台/dist/
+中后台/dist*/
+go-source/go-source-linux
+go-source/go-source.exe
+go-source/go-source
+
+# 运行时文件
+go-source/.env
+go-source/install.lock
+go-source/uploads/
+go-source/*.sql
+
+# 前端环境变量（含敏感信息）
+中后台/.env.local
+中后台/.env.*.local
+
+# 压缩包
+中后台/*.zip
+*.zip
+
+# 其他目录（不上传）
+php/
+软件源搬运+图标搜索/
+zsign 2/
+deploy/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+*.log
