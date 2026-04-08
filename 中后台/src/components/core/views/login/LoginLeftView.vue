@@ -10,12 +10,7 @@
       <ThemeSvg :src="loginIcon" size="100%" />
     </div>
 
-    <div class="text-wrap">
-      <h1> {{ $t('login.leftView.title') }} </h1>
-      <p> {{ $t('login.leftView.subTitle') }} </p>
-    </div>
-
-    <!-- 几何装饰元素 -->
+      <!-- 几何装饰元素 -->
     <div class="geometric-decorations">
       <!-- 基础几何形状 -->
       <div class="geo-element circle-outline animate-fade-in-up" style="animation-delay: 0s"></div>
@@ -492,31 +487,13 @@
     }
 
     @media only screen and (width <= 1180px) {
-      width: auto;
-      height: auto;
-      padding: 0;
-      // 隐藏背景和其他内容，只保留 logo
-      background: transparent;
-
-      .left-img,
-      .text-wrap,
-      .geometric-decorations {
-        display: none;
-      }
-
-      .logo {
-        display: none;
-      }
+      display: none;
     }
   }
 
   // 暗色主题
   .dark .login-left-view {
     background-color: color-mix(in srgb, $primary-light-9 60%, #070707);
-
-    @media only screen and (width <= 1180px) {
-      background: transparent;
-    }
 
     .geometric-decorations {
       // 月亮效果
