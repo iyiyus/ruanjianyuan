@@ -1,5 +1,5 @@
 <template>
-  <div class="art-full-height">
+  <div class="art-full-height" style="overflow-y:auto">
     <ElCard shadow="never" class="mb-4">
       <div class="flex items-center gap-3">
         <span class="text-sm text-g-600 flex-shrink-0">软件源地址</span>
@@ -38,13 +38,13 @@
       </div>
 
       <div class="apps-grid">
-        <div v-for="(app, idx) in apps" :key="idx"
+        <div v-for="(app, idx) in pagedApps" :key="idx"
           class="app-item"
-          :class="{ 'is-selected': isSelected(idx) }"
-          @click="toggleSelect(idx)">
+          :class="{ 'is-selected': isSelected(pageStart + idx) }"
+          @click="toggleSelect(pageStart + idx)">
           <div class="flex items-start gap-3">
             <div class="relative flex-shrink-0">
-              <ElCheckbox :model-value="isSelected(idx)" @click.stop="toggleSelect(idx)" />
+              <ElCheckbox :model-value="isSelected(pageStart + idx)" @click.stop="toggleSelect(pageStart + idx)" />
             </div>
             <div style="width:44px;height:44px;border-radius:10px;background:#f5f5f5;overflow:hidden;flex-shrink:0">
               <img :src="app.iconURL" style="width:44px;height:44px;object-fit:cover"
@@ -61,6 +61,16 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <ElPagination
+          v-model:current-page="currentPage"
+          :page-size="pageSize"
+          :total="apps.length"
+          layout="total, prev, pager, next"
+          background
+        />
       </div>
     </ElCard>
 
@@ -81,6 +91,11 @@
   const importing = ref(false)
   const fetched = ref(false)
   const history = ref<string[]>(JSON.parse(localStorage.getItem('sourceHistory') || '[]'))
+
+  const currentPage = ref(1)
+  const pageSize = 20
+  const pageStart = computed(() => (currentPage.value - 1) * pageSize)
+  const pagedApps = computed(() => apps.value.slice(pageStart.value, pageStart.value + pageSize))
 
   const selectedApps = computed(() => apps.value.filter((_, i) => selectedIndexes.value.has(i)))
 
@@ -120,6 +135,7 @@
       const data = await fetchRemoteSource({ url: form.value.url.trim(), udid: form.value.udid.trim() || undefined })
       apps.value = data.apps || []
       fetched.value = true
+      currentPage.value = 1
       saveHistory(form.value.url.trim())
       if (apps.value.length > 0) {
         selectAll()

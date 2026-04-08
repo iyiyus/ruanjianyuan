@@ -26,6 +26,7 @@
 
     #app-content {
       flex: 1;
+      min-height: 0;
 
       :deep(.layout-content) {
         box-sizing: border-box;
@@ -37,7 +38,6 @@
           position: relative;
           box-sizing: border-box;
           padding: 20px;
-          overflow: hidden;
           background: var(--default-box-color);
           border-radius: calc(var(--custom-radius) / 2 + 2px) !important;
         }

@@ -191,7 +191,7 @@
 
 // 容器全高
 .art-full-height {
-  height: var(--art-full-height);
+  min-height: var(--art-full-height);
   display: flex;
   flex-direction: column;
 
